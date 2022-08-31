@@ -1,0 +1,88 @@
+
+
+
+
+			try {
+			//md contient la méthode de chiffrement comme 1er argument
+			MessageDigest md = MessageDigest.getInstance("md5");
+			byte[] hashInBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+			StringBuilder sb = new StringBuilder();
+			for (byte b : hashInBytes) {
+			sb.append(String.format("%02x", b));
+			}
+			
+			System.out.println("le mot de passe apres hachage est "+sb.toString());
+			Admin admin = new Admin(name, password);
+			if (LoginDAO.validation(admin,sb.toString())) {
+				HttpSession masseion = request.getSession();
+				masseion.setAttribute("utilsateur", name);
+				this.getServletContext().getRequestDispatcher("/ListeVoyage").forward(request, response);
+
+			} else {
+				this.getServletContext().getRequestDispatcher("/Erreur.jsp").forward(request, response);
+			}
+
+			}
+			catch (NoSuchAlgorithmException e){
+			System.err.println("Erreur:"+e.toString());
+
+			}
+			
+			
+			
+			
+			
+			
+			int id =  Integer.parseInt(request.getParameter("idDatevoyage"));
+				System.out.println(id+" id date voyage mn login first");
+				String username = request.getParameter("username");
+				String password = request.getParameter("password");	 
+				System.out.println(password+" est le mot de passe que vous avez entré");
+				
+			
+				Client client = new Client(username, password);	
+				int idClient = CL.getIdClient(username, password); 
+				System.out.println(idClient+" est l id du client");
+				int idVoyage = DV.getIdVoyageByIdDateVoyage(id);
+				System.out.println(idVoyage+" id voyage");
+				if(LG.validation(client)) {
+					P.addPanier(id,idClient);
+					
+					
+					System.out.println("authentification succes");
+					System.out.println("1");
+					listVoyagePanier= V.listeVoyage();
+					System.out.println("2");
+					request.setAttribute("Voyage", listVoyageClient);
+					System.out.println("3");
+					request.getRequestDispatcher("panier.jsp").forward(request, response);
+					
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				Client client = new Client(username, password);	
+				int idClient = CL.getIdClient(username, password); 
+				System.out.println(idClient+" est l id du client");
+				int idVoyage = DV.getIdVoyageByIdDateVoyage(id);
+				System.out.println(idVoyage+" id voyage");
+				if(LG.validation(client)) {
+					P.addPanier(id,idClient);
+					
+					
+					System.out.println("authentification succes");
+					System.out.println("1");
+					listVoyagePanier= V.listeVoyage();
+					System.out.println("2");
+					request.setAttribute("Voyage", listVoyageClient);
+					System.out.println("3");
+					request.getRequestDispatcher("panier.jsp").forward(request, response);
+					
+				}
