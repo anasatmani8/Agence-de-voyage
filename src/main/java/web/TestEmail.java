@@ -10,7 +10,7 @@ public class TestEmail {
 		// TODO Auto-generated method stub
 		
 		SendEmail2 send = new SendEmail2();
-		send.envoyerEmail("axxyy954@gmail.com", "ADMINISTRATIONXXYY");
+		send.envoyerEmail("axxyy954@gmail.com", "***********");
 	}
 
 }
